@@ -6,10 +6,23 @@
   
   <body>
     <h1>bro</h1>
-    <ul>
-      <li><a href="/saltybg.png"><img src="saltybg.png"></a></li>
-      <li><a href="/agwell-rembg.png"><img src="agwell-rembg.png"></a></li>
-    </ul>
+    <ul id="gallery"></ul>
+
+    <script>
+      fetch('/gallery.json')
+        .then(r => r.json())
+        .then(images => {
+          const list = document.getElementById('gallery');
+          images.forEach(src => {
+            const li = document.createElement('li');
+            const a = document.createElement('a');
+            a.href = src;
+            a.target = '_blank';
+            a.textContent = src.slice(1); // removes the leading /
+            li.appendChild(a);
+            list.appendChild(li);
+          });
+        });
+    </script>
   </body>
 </html>
-
